@@ -1,0 +1,80 @@
+.expenses_Section {
+  width: 538px;
+  /* height: 335px; */
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 34px 20px 40px 30px;
+  gap: 22px;
+  background-color: rgba(239, 239, 239, 0.75);
+  /* align-items: flex-start; */
+  /* justify-content: flex-start; */
+}
+.heading {
+  color: rgba(0, 0, 0, 1);
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 34.47px;
+  text-align: left;
+}
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  width: 460px;
+  /* height: 198px; */
+  gap: 14px;
+}
+.child {
+  width: 223px;
+  height: 51px;
+  border-radius: 15px;
+  color: black;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  padding: 16px 14px;
+  background-color: rgba(251, 251, 251, 1);
+}
+.actionBtns button {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: rgba(244, 187, 74, 1);
+  font-weight: 700;
+  width: 223px;
+  height: 51px;
+  border-radius: 15px;
+}
+.actionBtns button:nth-child(2) {
+  margin-left: 16px;
+  background-color: rgba(227, 227, 227, 1);
+  color: black;
+  font-weight: 400;
+  width: 112px;
+}
+input.child:focus {
+  outline: none;
+}
+.actionBtns button:focus {
+  outline: none; /* removes the default css of border */
+}
+
+.balanceFields {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 502px;
+}
+.priceInput {
+  width: 217px;
+  height: 51px;
+  border-radius: 15px;
+  color: black;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  border: none;
+  padding: 16px 14px;
+  background-color: rgba(251, 251, 251, 1);
+}
+.addBalanceBtn {
+  width: 145px !important;
+}
+.cancelBtn {
+  margin-left: 12px !important;
+}
