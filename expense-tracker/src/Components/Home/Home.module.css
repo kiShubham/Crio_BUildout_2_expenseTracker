@@ -151,3 +151,8 @@
   align-items: center;
   padding: 35px 10px;
 }
+
+.pagination {
+  /* justify-self: right; */
+  margin-top: auto;
+}

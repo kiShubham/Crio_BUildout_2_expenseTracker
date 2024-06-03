@@ -3,24 +3,45 @@
 import { Chart } from "chart.js/auto";
 import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import styles from "./PieChart.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const PieChart = (data_1) => {
-  const [data, setData] = useState({ food: 30, books: 50, entertaiment: 20 });
+const PieChart = ({ graphData }) => {
+  const [data, setData] = useState({ food: 100, travel: 0, entertaiment: 0 });
 
+  const generatedata = (graphData) => {
+    let obj = { food: 0, travel: 0, entertaiment: 0 };
+    if (graphData.length) {
+      graphData.forEach((e) => {
+        if (e.category === "food") {
+          obj.food += parseInt(e.price);
+        } else if (e.category === "travel") {
+          obj.travel += parseInt(e.price);
+        } else if (e.category === "entertaiment") {
+          obj.entertaiment += parseInt(e.price);
+        }
+      });
+    } else {
+      return (obj = { food: 100, travel: 0, entertaiment: 0 });
+    }
+    return obj;
+  };
+  useEffect(() => {
+    let obj = generatedata(graphData);
+    setData(obj);
+  }, [graphData]);
   return (
     <div className={styles.PieChart}>
       <Pie
         className={styles.chart}
         id="451"
         data={{
-          labels: [...Object.keys(data)],
-          //   labels: [],
+          labels: [...Object.keys(data)], //[label1, label2,label3]
+          // labels: [],
           datasets: [
             {
               label: "User expenses",
-              data: Object.values(data), //array
-              //   borderRadius: 4,
+              data: Object.values(data), //array-[30,50,20]
+              borderRadius: 4,
               borderWidth: 2,
               fontColor: ["rgba(255,255,255,1)"],
               borderColor: "rgba(0,0,0,0)",
