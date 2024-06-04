@@ -121,7 +121,7 @@ const Add_Edit = ({
               type="number"
               placeholder="Income Amount"
               className={styles.priceInput}
-              onChange={(e) => setAddBalance(e.target.value)}
+              onChange={(e) => setAddBalance(Math.abs(e.target.value))}
             />
             <div className={styles.actionBtns}>
               <button
