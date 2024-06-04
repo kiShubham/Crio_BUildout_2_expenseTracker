@@ -10,6 +10,7 @@ const Add_Edit = ({
   handleNewTransactions,
   handleBalance,
   existingData,
+  currentBalance,
 }) => {
   const [newExpense, setNewExpense] = useState(() => {
     if (existingData) {
@@ -46,6 +47,16 @@ const Add_Edit = ({
   const handleCancel = () => {
     cancelfn(false);
   };
+  const handleOverPrice = (e) => {
+    const price = e.target.value;
+    if (price > currentBalance) {
+      window.alert("add more money to have this, overPrice");
+    } else if (price < 0) {
+      window.alert(
+        "son nothing is free in this world \n Please enter valid price ,"
+      );
+    } else setNewExpense((prev) => ({ ...prev, price: price }));
+  };
 
   return (
     <div>
@@ -68,9 +79,7 @@ const Add_Edit = ({
               placeholder="Price"
               className={styles.child}
               value={newExpense.price}
-              onChange={(e) =>
-                setNewExpense((prev) => ({ ...prev, price: e.target.value }))
-              }
+              onChange={(e) => handleOverPrice(e)}
               required
             />
             <select

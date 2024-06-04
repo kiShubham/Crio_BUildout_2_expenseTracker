@@ -5,7 +5,7 @@ import { Pie, Bar, Doughnut } from "react-chartjs-2";
 import styles from "./PieChart.module.css";
 import { useEffect, useState } from "react";
 
-const PieChart = ({ graphData }) => {
+const PieChart = ({ graphData, calculateBarLengths }) => {
   const [data, setData] = useState({ food: 100, travel: 0, entertaiment: 0 });
 
   const generatedata = (graphData) => {
@@ -28,6 +28,7 @@ const PieChart = ({ graphData }) => {
   useEffect(() => {
     let obj = generatedata(graphData);
     setData(obj);
+    calculateBarLengths(obj);
   }, [graphData]);
   return (
     <div className={styles.PieChart}>

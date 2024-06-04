@@ -17,14 +17,11 @@ const Home = () => {
     }
     return [];
   });
-  // const [transactions, setTransactions] = useState([
-  //   // { title: "hh", price: "1000", category: "food", date: "10-10-1997" },
-  // ]);
+  const [bars, setBars] = useState({ food: 1, travel: 1, entertaiment: 1 });
   const [Indexes, setIndexes] = useState({
     first: 0,
     last: 3,
   });
-
   const [existingDataObj, setExistingDataObj] = useState({});
   const [balance_expenses, setBalanceExpense] = useState({
     balance: 5000,
@@ -53,6 +50,7 @@ const Home = () => {
     }
 
     const balance = balance_expenses.orgBalance - total_expense;
+
     // console.log(balance);
     // const newBalance = balance_expenses.balance - total_expense;
     // console.log(newBalance);
@@ -121,6 +119,27 @@ const Home = () => {
       localStorage.setItem("transaction", JSON.stringify(transactions));
   }, [transactions]);
 
+  const calculateBarLengths = (expenses) => {
+    const totalExpenses = Object.values(expenses).reduce(
+      (total, amount) => total + amount,
+      0
+    );
+    const percentages = {};
+
+    for (const category in expenses) {
+      percentages[category] = (expenses[category] / totalExpenses) * 100;
+    }
+    const boxLength = 296; // 400px
+    const barLengths = {};
+
+    for (const category in percentages) {
+      barLengths[category] = Math.floor(
+        (boxLength / 100) * percentages[category]
+      );
+    }
+    setBars(barLengths);
+  };
+
   return (
     <div>
       <div className={styles.home}>
@@ -130,6 +149,7 @@ const Home = () => {
             <div>
               <span>Wallet Balance:</span>
               <span style={{ fontWeight: "700" }}>
+                {" "}
                 ₹{balance_expenses.balance}
               </span>
             </div>
@@ -139,6 +159,7 @@ const Home = () => {
             <div>
               <span>Expenses:</span>
               <span style={{ fontWeight: "700" }}>
+                {" "}
                 ₹{balance_expenses.expense}
               </span>
             </div>
@@ -150,7 +171,10 @@ const Home = () => {
             </button>
           </div>
           <div className={styles.graph}>
-            <PieChart graphData={transactions} />
+            <PieChart
+              graphData={transactions}
+              calculateBarLengths={calculateBarLengths}
+            />
           </div>
         </div>
         <div className={styles.bottom}>
@@ -183,12 +207,21 @@ const Home = () => {
               <div className={styles.YaxisNames}>
                 <div className={styles.name}>Entertaiment</div>
                 <div className={styles.name}>Food</div>
-                <div className={styles.name}>Book</div>
+                <div className={styles.name}>Travel</div>
               </div>
               <div className={styles.bars}>
-                <div className="entertaiment" style={{ width: "80px" }}></div>
-                <div className="food" style={{ width: "120px" }}></div>
-                <div className="book" style={{ width: "200px" }}></div>
+                <div
+                  className={styles.entertaiment}
+                  style={{ width: `${bars.entertaiment}px` }}
+                ></div>
+                <div
+                  className={styles.food}
+                  style={{ width: `${bars.food}px` }}
+                ></div>
+                <div
+                  className={styles.travel}
+                  style={{ width: `${bars.travel}px` }}
+                ></div>
               </div>
             </div>
           </div>
@@ -202,6 +235,7 @@ const Home = () => {
               attr={"expense"}
               editOrAdd={"Add"}
               handleNewTransactions={handleNewTransactions}
+              currentBalance={balance_expenses.balance}
             />
           ) : att == "edit_Expense" ? (
             <Add_Edit
@@ -210,6 +244,7 @@ const Home = () => {
               editOrAdd={"Edit"}
               handleNewTransactions={handleNewTransactions}
               existingData={existingDataObj}
+              currentBalance={balance_expenses.balance}
             />
           ) : (
             <Add_Edit
